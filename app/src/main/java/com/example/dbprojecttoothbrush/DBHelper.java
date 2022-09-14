@@ -12,9 +12,9 @@ public class DBHelper {
         public Connection connectionClass()
         {
             ip = "ngknn.ru";
-            dateBase = "Mansheva.exan";
+            dateBase = "DatabaseAndroidToothbrush";
             userPassword = "12357";
-            userName = "310";
+            userName = "31П";
             port = "1433";
 
 
@@ -39,4 +39,3 @@ public class DBHelper {
         }
     }
 
-}

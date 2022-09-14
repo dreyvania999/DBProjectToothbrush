@@ -19,19 +19,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttong;
     Connection connection;
     String ConnectionResult = "";
-    String NameOfTheToothbrush,TermOfUse_Day,Price;
+    String NameOfTheToothbrush,TermOfUse_Day,Price,id;
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TableLayout DBoutput = findViewById(R.id.xcvxcv);
+        TableLayout DBoutput = findViewById(R.id.DataTable);
         UpdateDB(DBoutput);
-        buttong =findViewById(R.id.button);
+        buttong =findViewById(R.id.AddToothbrush);
 
     }
 
-        public void GetTextFormSql(View v)
+        public void GetTextFormSql()
     {
 
 
@@ -50,9 +50,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 while (resultSet.next())
                 {
 
-                    ID.setText(resultSet.getString(1));
-                    Title.setText(resultSet.getString(2));
-                    Count.setText(resultSet.getString(3));
+                    id=resultSet.getString(1);
+                    NameOfTheToothbrush= resultSet.getString(2);
+                    TermOfUse_Day=resultSet.getString(3);
+                    Price=resultSet.getString(4);
 
                 }
             }
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public  void UpdateDB(TableLayout DBoutput){
         int i=0;
-
+        GetTextFormSql();
         DBoutput.removeAllViews();
         do {
             TableRow DBoutputROW = new TableRow(this);
@@ -82,32 +83,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             TextView outputID= new TextView(this);
             params.weight = 1.0f;
             outputID.setLayoutParams(params);
-            outputID.setText("1");
+            outputID.setText(id);
             DBoutputROW.addView(outputID);
 
-            TextView outputName= new TextView(this);
+            TextView NameOfTheToothbrushT= new TextView(this);
             params.weight = 2.0f;
-            outputName.setLayoutParams(params);
-            outputName.setText("1");
-            DBoutputROW.addView(outputName);
+            NameOfTheToothbrushT.setLayoutParams(params);
+            NameOfTheToothbrushT.setText(NameOfTheToothbrush);
+            DBoutputROW.addView(NameOfTheToothbrushT);
 
-            TextView outputSurname= new TextView(this);
+            TextView TermOfUse_DayT= new TextView(this);
             params.weight = 2.0f;
-            outputSurname.setLayoutParams(params);
-            outputSurname.setText("1");
-            DBoutputROW.addView(outputSurname);
+            TermOfUse_DayT.setLayoutParams(params);
+            TermOfUse_DayT.setText(TermOfUse_Day);
+            DBoutputROW.addView(TermOfUse_DayT);
 
-            TextView outputPhone= new TextView(this);
+            TextView Pricet= new TextView(this);
             params.weight = 2.0f;
-            outputPhone.setLayoutParams(params);
-            outputPhone.setText("1");
-            DBoutputROW.addView(outputPhone);
+            Pricet.setLayoutParams(params);
+            Pricet.setText(Price);
+            DBoutputROW.addView(Pricet);
 
-            TextView outputAddress= new TextView(this);
-            params.weight = 2.0f;
-            outputAddress.setLayoutParams(params);
-            outputAddress.setText("1");
-            DBoutputROW.addView(outputAddress);
             DBoutput.addView(DBoutputROW);
             i+=1;
 
@@ -116,13 +112,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        TableLayout DBoutput = findViewById(R.id.xcvxcv);
+        TableLayout DBoutput = findViewById(R.id.DataTable);
 
 
 
         switch (view.getId()){
 
-            case R.id.button:
+            case R.id.AddToothbrush:
                 UpdateDB(DBoutput);
                 break;
 

@@ -7,20 +7,20 @@ android:layout_height="match_parent"
 tools:context=".MainActivity">
 
 <Button
-    android:id="@+id/button"
+    android:id="@+id/AddToothbrush"
     style="@style/Widget.AppCompat.Button.Borderless.Colored"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
     android:background="@drawable/button_style"
-    android:text="Button"
+    android:text="Добавить щетку"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/xcvxcv" />
+    app:layout_constraintTop_toBottomOf="@+id/DataTable" />
 
 <TableLayout
-    android:id="@+id/xcvxcv"
+    android:id="@+id/DataTable"
     android:layout_width="394dp"
     android:layout_height="558dp"
     android:layout_marginTop="16dp"
