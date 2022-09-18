@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button AddToothbrush;
     Connection connection;
     String ConnectionResult = "";
-    String NameOfTheToothbrush,TermOfUse_Day,Price,id;
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,39 +33,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-        public void GetTextFormSql( TableLayout DBoutput)
-    {DBoutput.removeAllViews();
-        try {
+        public void GetTextFormSql( TableLayout DBoutput) {
+            DBoutput.removeAllViews();
+            try {
 
-            DBHelper connectionHelper = new DBHelper();
-            connection = connectionHelper.connectionClass();
+                DBHelper DBHelper = new DBHelper();
+                connection = DBHelper.connectionClass();
 
-            if (connection!=null)
-            {
-                String query = "Select * From Toothbrush";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
+                if (connection != null) {
+                    String query = "Select * FROM Toothbrush";
+                    Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery(query);
 
 
-                while (resultSet.next())
-                {
-                    UpdateDB(DBoutput,resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4));
+                    while (resultSet.next()) {
+                        UpdateDB(DBoutput, resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
+                    }
+                } else {
+                    Toast.makeText(this, "Проверьте подключение!", Toast.LENGTH_LONG).show();
                 }
+            } catch (Exception ex) {
+                Toast.makeText(this, "Ошибка!", Toast.LENGTH_LONG).show();
             }
-            else
-            {
-                ConnectionResult="Check Connection";
-            }
-
         }
-        catch (Exception ex)
-        {
-
-
-        }
-    }
-
-
     public  void UpdateDB(TableLayout DBoutput, String a,String b, String c,String d){
 
             TableRow DBoutputROW = new TableRow(this);
@@ -97,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             DBoutputROW.addView(Pricet);
 
             DBoutput.addView(DBoutputROW);
-
 
     }
 

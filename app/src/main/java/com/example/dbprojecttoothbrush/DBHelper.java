@@ -6,15 +6,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBHelper {
-        String userName, userPassword, ip, port, dateBase;
+        String userName, userPassword, ip, port, database;
 
 
         public Connection connectionClass()
         {
             ip = "ngknn.ru";
-            dateBase = "DatabaseAndroidToothbrush";
-            userPassword = "12357";
+            database = "DatabaseAndroidToothbrush";
             userName = "31П";
+            userPassword = "12357";
             port = "1433";
 
 
@@ -24,18 +24,14 @@ public class DBHelper {
             Connection connection = null;
             String connectionURL = null;
 
-
-
-            try{
+            try {
                 Class.forName("net.sourceforge.jtds.jdbc.Driver");
-                connectionURL = "jdbc:jtds:sqlserver://" + ip + ":" + port + ";" + "databasename" + dateBase + ";user" + userName + ":password" + userPassword + ";";
+                connectionURL = "jdbc:jtds:sqlserver://" + ip + ":" + port + ";" + "databasename=" + database + ";user=" + userName + ";password=" + userPassword + ";";
                 connection = DriverManager.getConnection(connectionURL);
-            }
-            catch (Exception ex)
-            {
-                Log.e ( "Error",ex.getMessage());
+            } catch (Exception ex) {
+                Log.e("Error", ex.getMessage());
             }
             return connection;
         }
-    }
+}
 
