@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,32 +27,26 @@ public class ToothbrushActivity extends AppCompatActivity implements View.OnClic
         Price =findViewById(R.id.Price);
         editNameToothbrush =findViewById(R.id.editNameToothbrush);
         BackButton =findViewById(R.id.BackButton);
+
     }
-    public void GetTextFormSql()
-    {
+    public void SetTextFormSql() {
         try {
 
             DBHelper connectionHelper = new DBHelper();
             Connection connection = connectionHelper.connectionClass();
 
-            if (connection!=null)
-            {
-                String query = "INSERT INTO Toothbrush()";
+            if (connection != null) {
+                String query = "INSERT INTO Toothbrush(NameOfTheToothbrush, TermOfUse_Day,Price) Value('',)";
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
+                statement.executeUpdate(query);
 
+                Toast.makeText(this, "Сотрудник успешно добавлен", Toast.LENGTH_LONG).show();
 
+            } else {
+                Toast.makeText(this, "Проверьте подключение!", Toast.LENGTH_LONG).show();
             }
-            else
-            {
-                //ConnectionResult="Check Connection";
-            }
-
-        }
-        catch (Exception ex)
-        {
-
-
+        } catch (Exception ex) {
+            Toast.makeText(this, "Ошибка!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -60,6 +55,9 @@ public class ToothbrushActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
 
             switch (view.getId()){
+                case R.id.AddButton:
+
+                    break;
 
                 case R.id.BackButton:
                     Intent intent =new Intent(this,MainActivity.class);

@@ -12,7 +12,7 @@ public class DBHelper {
         public Connection connectionClass()
         {
             ip = "ngknn.ru";
-            database = "DatabaseAndroidToothbrush";
+            database = "41p_Drey_AndroidToothbrush";
             userName = "31П";
             userPassword = "12357";
             port = "1433";
