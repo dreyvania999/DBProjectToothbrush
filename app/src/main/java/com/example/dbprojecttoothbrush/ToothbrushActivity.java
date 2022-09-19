@@ -17,6 +17,8 @@ public class ToothbrushActivity extends AppCompatActivity implements View.OnClic
 
     EditText TermOfUse_Day,Price,editNameToothbrush;
     Button AddButton,BackButton;
+    Connection connection;
+    String ConnectionResult = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +34,15 @@ public class ToothbrushActivity extends AppCompatActivity implements View.OnClic
     public void SetTextFormSql() {
         try {
 
-            DBHelper connectionHelper = new DBHelper();
-            Connection connection = connectionHelper.connectionClass();
+            DBHelper DBHelper = new DBHelper();
+            connection = DBHelper.connectionClass();
 
             if (connection != null) {
-                String query = "INSERT INTO Toothbrush(NameOfTheToothbrush, TermOfUse_Day,Price) Value('',)";
+                String query = "INSERT INTO Toothbrush(NameOfTheToothbrush,TermOfUse_Day,Price) VALUES('"+(editNameToothbrush.getText().toString())+"',"+ Integer.parseInt(TermOfUse_Day.getText().toString())+","+Double.parseDouble(Price.getText().toString())+")";
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(query);
 
-                Toast.makeText(this, "Сотрудник успешно добавлен", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Запись успешно добавлена", Toast.LENGTH_LONG).show();
 
             } else {
                 Toast.makeText(this, "Проверьте подключение!", Toast.LENGTH_LONG).show();
@@ -56,7 +58,7 @@ public class ToothbrushActivity extends AppCompatActivity implements View.OnClic
 
             switch (view.getId()){
                 case R.id.AddButton:
-
+                    SetTextFormSql();
                     break;
 
                 case R.id.BackButton:
