@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TableLayout DBoutput = findViewById(R.id.DataTable);
+            TableLayout DBoutput = findViewById(R.id.DataTable);
         AddToothbrush =findViewById(R.id.AddToothbrush);
             GetTextFormSql(DBoutput);
 
@@ -56,36 +56,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "Ошибка!", Toast.LENGTH_LONG).show();
             }
         }
-    public  void UpdateDB(TableLayout DBoutput, String a,String b, String c,String d){
+    public  void UpdateDB(TableLayout DBoutput, String ID,String TheToothbrush, String TermOfUse,String Price){
 
             TableRow DBoutputROW = new TableRow(this);
             DBoutputROW.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
             TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
 
-            TextView outputID= new TextView(this);
+            Button changeButton = new Button(this);
+
             params.weight = 1.0f;
-            outputID.setLayoutParams(params);
-            outputID.setText(a);
-            DBoutputROW.addView(outputID);
+            changeButton.setLayoutParams(params);
+            changeButton.setText(ID);
+            changeButton.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            changeButton.setId(Integer.parseInt(ID));
+            changeButton.setOnClickListener((view -> {
+                DBHelper.id =Integer.parseInt(ID);
+                startActivity(new Intent(MainActivity.this, ToothbrushActivity.class));
+            }));
+            DBoutputROW.addView(changeButton);
 
             TextView NameOfTheToothbrushT= new TextView(this);
             params.weight = 2.0f;
             NameOfTheToothbrushT.setLayoutParams(params);
-            NameOfTheToothbrushT.setText(b);
+            NameOfTheToothbrushT.setText(TheToothbrush);
             DBoutputROW.addView(NameOfTheToothbrushT);
 
             TextView TermOfUse_DayT= new TextView(this);
             params.weight = 2.0f;
             TermOfUse_DayT.setLayoutParams(params);
-            TermOfUse_DayT.setText(c);
+            TermOfUse_DayT.setText(TermOfUse);
             DBoutputROW.addView(TermOfUse_DayT);
 
             TextView Pricet= new TextView(this);
             params.weight = 2.0f;
             Pricet.setLayoutParams(params);
-            Pricet.setText(d);
+            Pricet.setText(Price);
             DBoutputROW.addView(Pricet);
 
+             Button deleteButton = new Button(this);
+             deleteButton.setOnClickListener(this);
+
+             deleteButton.setText("X");
+             deleteButton.setId(Integer.parseInt(ID));
+             DBoutputROW.addView(deleteButton);
             DBoutput.addView(DBoutputROW);
 
     }
@@ -98,6 +111,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.AddToothbrush:
                 Intent intent =new Intent(this,ToothbrushActivity.class);
                 startActivity(intent);
+                break;
+            default:
+                try {
+                    DBHelper dbHelper = new DBHelper();
+                    connection = dbHelper.connectionClass();
+                    String id = String.valueOf((view.getId()));
+                    if (connection != null) {
+                        String query = "DELETE FROM Toothbrush WHERE id = " + id;
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate(query);
+
+                        Toast.makeText(this, "Щетка удалёна", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "Проверьте подключение", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(this, "Возникла ошибка", Toast.LENGTH_LONG).show();
+                }
+                TableLayout DBoutput = findViewById(R.id.DataTable);
+                GetTextFormSql(DBoutput);
                 break;
 
         }

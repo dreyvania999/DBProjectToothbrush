@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 
 public class DBHelper {
         String userName, userPassword, ip, port, database;
+        public static int id = -1;
 
 
         public Connection connectionClass()
