@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="str1">
+        <item>Название счетки</item>
+        <item>Количество дней использования</item>
+        <item>Цена</item>
+    </string-array>
+    <string-array name="str2">
+        <item>По возрастанию</item>
+        <item>По убыванию</item>
+    </string-array>
+</resources>

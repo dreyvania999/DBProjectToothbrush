@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,12 +23,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     EditText NameToothbrush;
     Button AddToothbrush;
     Connection connection;
     String ConnectionResult = "";
+    Switch SActivateSort;
+    Spinner spinner2,spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +39,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TableLayout DBoutput = findViewById(R.id.DataTable);
         NameToothbrush = findViewById(R.id.SearchNameTB);
         AddToothbrush = findViewById(R.id.AddToothbrush);
+        SActivateSort= findViewById(R.id.SActivateSort);
+        spinner2 = findViewById(R.id.spinner2);
+        spinner= findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(this);
+        spinner2.setOnItemSelectedListener(this);
         GetTextFormSql(DBoutput);
-        NameToothbrush.setOnKeyListener(new View.OnKeyListener() {
+
+        NameToothbrush.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 GetTextFormSql(DBoutput);
-                return false;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                GetTextFormSql(DBoutput);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                GetTextFormSql(DBoutput);
             }
         });
+    }
+    private String SelectedStrigOrder(int g)
+    {
+        String d = "";
+        switch (g)
+        {
+            case 0 :
+                d= " ORDER BY NameOfTheToothbrush";
+                break;
+            case 1 :
+                d= " ORDER BY TermOfUse_Day";
+                break;
+            case 2 :
+                d= " ORDER BY Price";
+                break;
+            case 3 :
+                d= " ORDER BY NameOfTheToothbrush";
+                break;
+        }
+        return d;
+    }
+    private String SelectedASCDESCOrder(int g)
+    {
+        String d="";
+        switch (g)
+        {
+            case 0 :
+                d= "ASC";
+                break;
+            case 1 :
+                d= "DESC";
+                break;
+        }
+        return d;
     }
 
     public void GetTextFormSql(TableLayout DBoutput) {
@@ -50,7 +106,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             connection = DBHelper.connectionClass();
 
             if (connection != null) {
-                String query = "Select * FROM Toothbrush WHERE NameOfTheToothbrush LIKE '%" + NameToothbrush.getText().toString() + "%'";
+                String query = "Select * FROM Toothbrush";
+                query += " WHERE NameOfTheToothbrush LIKE '%" + NameToothbrush.getText().toString() + "%'";
+                if (SActivateSort.isChecked())
+                {
+                    query += SelectedStrigOrder(spinner.getSelectedItemPosition())+" "+ SelectedASCDESCOrder(spinner2.getSelectedItemPosition());
+                }
+
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {
@@ -111,14 +173,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        TableLayout DBoutput = findViewById(R.id.DataTable);
+        GetTextFormSql(DBoutput);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        TableLayout DBoutput = findViewById(R.id.DataTable);
+        GetTextFormSql(DBoutput);
+    }
+
     @Override
     public void onClick(View view) {
-
+        TableLayout DBoutput = findViewById(R.id.DataTable);
         switch (view.getId()) {
 
             case R.id.AddToothbrush:
                 Intent intent = new Intent(this, ToothbrushActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.SActivateSort:
+                GetTextFormSql(DBoutput);
                 break;
             default:
                 try {
@@ -137,10 +213,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (Exception ex) {
                     Toast.makeText(this, "Возникла ошибка", Toast.LENGTH_LONG).show();
                 }
-                TableLayout DBoutput = findViewById(R.id.DataTable);
                 GetTextFormSql(DBoutput);
                 break;
 
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+        TableLayout DBoutput = findViewById(R.id.DataTable);
+        GetTextFormSql(DBoutput);
     }
 }
