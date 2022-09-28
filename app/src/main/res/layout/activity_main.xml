@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="138dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="493dp" />
+
+    <EditText
+        android:id="@+id/SearchNameTB"
+        android:layout_width="206dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:digits="abcdefghijklmnopqrstuvwxyz1234567890 йфяцычувскамепинртгоьшлбщдюзжхэъWERTYUIOPLKJHGFDSAZXCVBNM-"
+        android:ems="10"
+        android:hint="Введите строку для поиска"
+        android:maxLength="49"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/AddToothbrush"
@@ -18,34 +40,49 @@ tools:context=".MainActivity">
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DataTable"
-        app:layout_constraintVertical_bias="0.48" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <TableLayout
-    android:id="@+id/DataTable"
-    android:layout_width="394dp"
-    android:layout_height="558dp"
-    android:layout_marginTop="16dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.47"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/DataTable"
+        android:layout_width="400dp"
+        android:layout_height="416dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchNameTB">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</TableLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="493dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="138dp"
+        android:layout_height="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/spinner2"
+        app:layout_constraintStart_toEndOf="@+id/switch1"
+        tools:layout_editor_absoluteY="495dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

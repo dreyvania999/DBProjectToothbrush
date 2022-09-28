@@ -73,7 +73,7 @@ public class ToothbrushActivity extends AppCompatActivity implements View.OnClic
 
             } else {
                 Toast.makeText(this, "Проверьте подключение!", Toast.LENGTH_LONG).show();
-            }
+            }94056789850-= 690-09
         } catch (Exception ex) {
             Toast.makeText(this, "Ошибка!", Toast.LENGTH_LONG).show();
         }
