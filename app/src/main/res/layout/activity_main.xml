@@ -8,13 +8,12 @@
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="138dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="190dp"
+        android:layout_height="27dp"
         android:layout_marginEnd="16dp"
         android:entries="@array/str2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DataTable" />
+        app:layout_constraintTop_toBottomOf="@+id/SActivateSort" />
 
     <EditText
         android:id="@+id/SearchNameTB"
@@ -43,15 +42,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
+    <ScrollView
+        android:id="@+id/DataTable1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchNameTB"
+        android:layout_width="400dp"
+        android:layout_height="416dp"
+        android:layout_marginTop="8dp"
+        android:scrollbars="none"
+        android:layout_weight="1">
     <TableLayout
         android:id="@+id/DataTable"
         android:layout_width="400dp"
         android:layout_height="416dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SearchNameTB">
+
+        android:padding="10dip"
+        android:isScrollContainer="true">
 
         <TableRow
             android:layout_width="match_parent"
@@ -69,25 +77,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </TableLayout>
+    </ScrollView>
 
     <Switch
         android:id="@+id/SActivateSort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Switch"
+        android:text="Активировать"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DataTable" />
+        app:layout_constraintTop_toBottomOf="@+id/DataTable1" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="138dp"
+        android:layout_width="194dp"
         android:layout_height="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:entries="@array/str1"
         app:layout_constraintEnd_toStartOf="@+id/spinner2"
-        app:layout_constraintStart_toEndOf="@+id/SActivateSort"
-        app:layout_constraintTop_toBottomOf="@+id/DataTable" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SActivateSort" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
